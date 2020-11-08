@@ -26,25 +26,26 @@ loop do
   left = /^LEFT\s*$/
   right = /^RIGHT\s*$/
   report = /^REPORT\s*$/
-  exit = /^EXIT\s*$/
+  exit = /^(?i)EXIT\s*$/
 
-
-  unless input.match(exit)
-    if input.match(place)
-      command, x_coord, y_coord, f = input.gsub(',', ' ').split
-      pacman.place(x_coord.to_i, y_coord.to_i, f)
-    elsif input.match(move)
-      pacman.move
-    elsif input.match(left)
-      pacman.left
-    elsif input.match(right)
-      pacman.right
-    elsif input.match(report)
-      p pacman.report
-    else
-      puts "I m not sure I understand, please enter again!"
+  unless input.nil?
+    unless input.match(exit)
+      if input.match(place)
+        command, x_coord, y_coord, f = input.gsub(',', ' ').split
+        pacman.place(x_coord.to_i, y_coord.to_i, f)
+      elsif input.match(move)
+        pacman.move
+      elsif input.match(left)
+        pacman.left
+      elsif input.match(right)
+        pacman.right
+      elsif input.match(report)
+        p pacman.report
+      else
+        puts "I m not sure I understand, please enter again!"
+      end
+      next
     end
-    next
   end
 
   puts "Exiting...See you later!"
