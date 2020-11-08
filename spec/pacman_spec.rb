@@ -8,9 +8,9 @@ describe Pacman do
   end
 
   describe "#initialize" do
-    it 'Pacman should be initialized nil' do
-      expect(@pacman.x).to be_nil
-      expect(@pacman.y).to be_nil
+    it 'initialized position should be nil' do
+      expect(@pacman.x_coord).to be_nil
+      expect(@pacman.y_coord).to be_nil
       expect(@pacman.f).to be_nil
     end
   end
@@ -22,14 +22,15 @@ describe Pacman do
   end
 
   describe ".place" do
-    context 'while pacman is at 0, 0, NORTH' do
-    x = 1
-    y = 2
+    context 'when pacman is not yet on the grid' do
+    x_coord = 1
+    y_coord = 2
     f = 'NORTH'
       it 'updates position of pacman' do
-        @pacman.place(x = x, y = y, f = f)
-        expect(@pacman.x).to eq 1
-        expect(@pacman.y).to eq 2
+        expect(@pacman.report).to eq ", , "
+        @pacman.place(x_coord, y_coord, f)
+        expect(@pacman.x_coord).to eq 1
+        expect(@pacman.y_coord).to eq 2
         expect(@pacman.f).to eq 'NORTH'
       end
     end
@@ -37,13 +38,13 @@ describe Pacman do
 
   describe ".move_to" do
     context 'while pacman is on grid' do
-    x = 1
-    y = 3
+    x_coord = 1
+    y_coord = 3
     f = 'NORTH'
       it 'updates position of pacman' do
-        @pacman.place(x = x, y = y, f = f)
-        expect(@pacman.x).to eq 1
-        expect(@pacman.y).to eq 3
+        @pacman.place(x_coord, y_coord, f)
+        expect(@pacman.x_coord).to eq 1
+        expect(@pacman.y_coord).to eq 3
         expect(@pacman.f).to eq 'NORTH'
       end
     end
@@ -51,13 +52,13 @@ describe Pacman do
 
   describe ".left" do
     context 'when user inputs left' do
-      x = 0
-      y = 0
+      x_coord = 0
+      y_coord = 0
       f = 'NORTH'
       it 'should turn pacman but he should not move' do
         @pacman.left
-        expect(@pacman.x).to eq 0
-        expect(@pacman.y).to eq 0
+        expect(@pacman.x_coord).to eq 0
+        expect(@pacman.y_coord).to eq 0
         expect(@pacman.f).to eq 'WEST'
       end
     end
@@ -65,13 +66,13 @@ describe Pacman do
 
   describe ".right" do
     context 'when user inputs right' do
-    x = 0
-    y = 0
+    x_coord = 0
+    y_coord = 0
     f = 'NORTH'
       it 'should turn pacman but he should not move' do
         @pacman.right
-        expect(@pacman.x).to eq 0
-        expect(@pacman.y).to eq 0
+        expect(@pacman.x_coord).to eq 0
+        expect(@pacman.y_coord).to eq 0
         expect(@pacman.f).to eq 'EAST'
       end
     end
@@ -79,14 +80,14 @@ describe Pacman do
 
   describe ".report" do
     context 'when user inputs report' do
-      x = 0
-      y = 1
+      x_coord = 0
+      y_coord = 1
       f = 'NORTH'
       it 'should return a string containing the location of pacman' do
-        @pacman.place(x = x, y = y, f = f)
+        @pacman.place(x_coord, y_coord, f = f)
         expect(@pacman.report).to be_a String
-        expect(@pacman.x).to eq 0
-        expect(@pacman.y).to eq 1
+        expect(@pacman.x_coord).to eq 0
+        expect(@pacman.y_coord).to eq 1
         expect(@pacman.f).to eq 'NORTH'
       end
     end
@@ -94,13 +95,13 @@ describe Pacman do
 
   describe ".move" do
     context 'when user inputs move' do
-      x = 2
-      y = 2
+      x_coord = 2
+      y_coord = 2
       f = 'NORTH'
       it 'should return a string containing the location of pacman' do
-        @pacman.place(x = x, y = y, f = f)
+        @pacman.place(x_coord, y_coord, f)
         expect(@pacman.move).to eq 3
-        expect(@pacman.x).to eq 2
+        expect(@pacman.x_coord).to eq 2
         expect(@pacman.f).to eq 'NORTH'
       end
     end

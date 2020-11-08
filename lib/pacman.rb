@@ -4,70 +4,68 @@ class Pacman
 
   @@directions = ['NORTH', 'EAST', 'SOUTH', 'WEST'].freeze
 
-  attr_reader :x, :y, :f, :grid
+  attr_reader :x_coord, :y_coord, :f, :grid
 
   def initialize
     @grid = Grid.new
-    @x = nil
-    @y = nil
+    @x_coord = nil
+    @y_coord = nil
     @f = nil
   end
 
   def placed?
-    !x.nil? && !y.nil? && !f.nil?
+    !x_coord.nil? && !y_coord.nil? && !f.nil?
   end
 
-  def place(x, y, f)
-    @x = x
-    @y = y
+  def place(x_coord, y_coord, f)
+    @x_coord = x_coord
+    @y_coord = y_coord
     @f = f
   end
 
-  def move_to(x, y, f)
-    place(x = x, y = y, f = f)
-  end
+  # def move_to(x_coord, y_coord, f)
+  #   place(x = x_coord, y_coord = y_coord, f = f)
+  # end
 
   def left
-    index = @@directions.index { |d| d == self.f }
+    p_index = @@directions.index { |d| d == @f }
 
     if @f == @@directions.first
       new_dir = @@directions.last
     else
-      index -= 1
-      new_dir = @@directions.fetch(index)
+      p_index -= 1
+      new_dir = @@directions[p_index]
     end
-
-    self.move_to(x = @x, y = @y, @f = new_dir)
+    @f = new_dir
   end
 
   def right
-    index = @@directions.index { |d| d == self.f }
+    p_index = @@directions.index { |d| d == @f }
 
     if @f == @@directions.last
       new_dir = @@directions.first
     else
-      index += 1
-      new_dir = @@directions.fetch(index)
+      p_index += 1
+      new_dir = @@directions[p_index]
     end
-
-    self.move_to(x = @x, y = @y, @f = new_dir)
+    @f = new_dir
   end
 
   def report
-    return "#{@x}, #{@y}, #{@f}"
+    return "#{@x_coord}, #{@y_coord}, #{@f}"
   end
 
   def move
-    if @f == 'NORTH' && @x <= 3
-      @y += 1
-    elsif @f == 'SOUTH' && @y >= 1
-      @y -= 1
-    elsif @f == 'EAST' && @y <= 3
-      @x += 1
-    elsif @f =='WEST' && @x >= 1
-      @x -= 1
+    if @f == 'NORTH' && @x_coord <= 3
+      @y_coord += 1
+    elsif @f == 'SOUTH' && @y_coord >= 1
+      @y_coord -= 1
+    elsif @f == 'EAST' && @y_coord <= 3
+      @x_coord += 1
+    elsif @f =='WEST' && @x_coord >= 1
+      @x_coord -= 1
     else
-      puts 'Invalid - Pacman must move on the grid'
+      puts "Invalid - Pacman must move on the grid"
     end
   end
 end
