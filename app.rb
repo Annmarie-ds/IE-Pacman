@@ -19,9 +19,9 @@ Enter 'EXIT' to leave the game! \n "
 
 loop do
   puts 'Command:'
-  input = gets.chomp
+  input = $stdin.gets
 
-  place = /^PLACE\s*\d+\s*,\s*\d+\s*,\s*(NORTH||EAST||WEST||SOUTH)\s*$/
+  place = /^PLACE\s*\d\s*,\s*\d\s*,\s*(NORTH|EAST|WEST|SOUTH)\s*$/
   move = /^MOVE\s*$/
   left = /^LEFT\s*$/
   right = /^RIGHT\s*$/
@@ -31,8 +31,8 @@ loop do
 
   unless input.match(exit)
     if input.match(place)
-      command, x, y, f = input.gsub(',', ' ').split
-      pacman.place(x.to_i, y.to_i, f)
+      command, x_coord, y_coord, f = input.gsub(',', ' ').split
+      pacman.place(x_coord.to_i, y_coord.to_i, f)
     elsif input.match(move)
       pacman.move
     elsif input.match(left)
